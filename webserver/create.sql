@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS Car_showroom;
+
+CREATE DATABASE Car_showroom;

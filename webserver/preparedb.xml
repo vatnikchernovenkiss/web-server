@@ -1,0 +1,41 @@
+ 
+<project name="webserver" default="SQL" basedir=".">
+    <property name="driver" value="org.postgresql.Driver"/>
+    <property name="url1" value="jdbc:postgresql://localhost:5432/"/>
+
+    <property name="url" value="jdbc:postgresql://localhost/Сar_showroom"/>
+    <property name="user" value="postgres"/>
+    <property name="pass" value="lsizih123"/>
+    <property name="classpath" value="postgresql-42.2.10.jar"/>
+
+    <target name="createdb">
+        <sql driver="${driver}"
+            classpath="${classpath}"
+            url="${url1}"
+            userid="${user}"
+            password="${pass}"
+            autocommit="true">
+            <transaction src="create.sql" />
+        </sql>
+    </target>
+    <target name="createtables">
+    	<sql driver="${driver}"
+    	 	classpath="${classpath}"
+    	    url="${url}"
+    	    userid="${user}"
+    	    password="${pass}"
+    	    autocommit="true">
+    	    <transaction src="script.sql" />   	
+    	</sql>
+    </target>
+    <target name="initdb">
+		<sql driver="${driver}"
+	    	classpath="${classpath}"
+	    	url="${url}"
+	    	userid="${user}"
+	    	password="${pass}"
+	    	autocommit="true">
+	    	<transaction src="init.sql" />   	
+	    </sql>
+	</target>
+</project>
