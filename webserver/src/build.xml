@@ -10,7 +10,7 @@
     </path>
 
     <target name = "build">
-        <mkdir dir ="out/production/car_showroom"/>
+        <mkdir dir ="out/car_showroom"/>
         <copy file="hibernate.cfg.xml" todir="out/car_showroom"/>
 
         <javac includeantruntime = "false"
