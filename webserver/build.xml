@@ -38,7 +38,7 @@
 	    	<transaction src="init.sql" />   	
 	    </sql>
 	</target>
-	<target name="build">
+    <target name="build">
         <ant antfile="src/build.xml"/>
     </target>
 	<target name = "tests">
