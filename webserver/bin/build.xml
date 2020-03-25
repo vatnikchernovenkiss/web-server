@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<project basedir = "." default = "build" name = "build">
+    <property file = "../build.properties"/>
+
+    <path id = "classpath.master">
+        <fileset dir = "lib">
+        	<include name="*.jar"/>
+        </fileset>
+        <pathelement path = "out/production/car_showroom"/>
+    </path>
+
+    <target name = "build">
+        <mkdir dir ="out/production/car_showroom"/>
+        <copy file="hibernate.cfg.xml" todir="out/production/car_showroom"/>
+
+        <javac includeantruntime = "false"
+               destdir = "out/production/car_showroom"
+               source = "14"
+               target = "14">
+            <src path = "src"/>
+            <classpath refid = "classpath.master"/>
+        </javac>
+    </target>
+</project>
