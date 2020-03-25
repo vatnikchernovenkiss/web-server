@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [tests]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="tests(failed)">
+    <classes>
+      <class name="Tests.TestClients">
+        <methods>
+          <include name="TestDelete"/>
+          <include name="TestStatus"/>
+          <include name="TestUpdate"/>
+          <include name="TestName"/>
+          <include name="TestE_mail"/>
+          <include name="TestDate"/>
+          <include name="CreateSession"/>
+        </methods>
+      </class> <!-- Tests.TestClients -->
+      <class name="Tests.TestCars">
+        <methods>
+          <include name="TestNumber"/>
+          <include name="TestDevice"/>
+          <include name="CreateSession"/>
+          <include name="TestModel"/>
+          <include name="TestUpdate"/>
+          <include name="TestPrice"/>
+          <include name="TestTestDrive"/>
+          <include name="TestDelete"/>
+        </methods>
+      </class> <!-- Tests.TestCars -->
+      <class name="Tests.TestModels">
+        <methods>
+          <include name="CreateSession"/>
+          <include name="TestDelete"/>
+          <include name="TestUpdate"/>
+          <include name="TestTitle"/>
+        </methods>
+      </class> <!-- Tests.TestModels -->
+      <class name="Tests.TestDevices">
+        <methods>
+          <include name="TestUpdate"/>
+          <include name="TestDelete"/>
+          <include name="TestCars"/>
+          <include name="CreateSession"/>
+        </methods>
+      </class> <!-- Tests.TestDevices -->
+      <class name="Tests.TestDevelopers">
+        <methods>
+          <include name="TestDelete"/>
+          <include name="TestUpdate"/>
+          <include name="TestModels"/>
+          <include name="CreateSession"/>
+        </methods>
+      </class> <!-- Tests.TestDevelopers -->
+      <class name="Tests.TestOrders">
+        <methods>
+          <include name="TestUpdate"/>
+          <include name="CreateSession"/>
+          <include name="TestDate"/>
+          <include name="TestNumber"/>
+          <include name="TestDelete"/>
+          <include name="TestStatus"/>
+        </methods>
+      </class> <!-- Tests.TestOrders -->
+    </classes>
+  </test> <!-- tests(failed) -->
+</suite> <!-- Failed suite [tests] -->
