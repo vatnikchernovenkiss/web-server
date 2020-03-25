@@ -6,7 +6,7 @@
         <fileset dir = "lib">
         	<include name="*.jar"/>
         </fileset>
-        <pathelement path = "out/production/car_showroom"/>
+        <pathelement path = "out/car_showroom"/>
     </path>
 
     <target name = "build">
