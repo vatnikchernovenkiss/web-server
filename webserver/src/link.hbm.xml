@@ -69,7 +69,7 @@
 	</class>
 	<class name = "Entities.Models" table = "Models">
 		<id name="id" column="id" type="java.lang.Integer">
- 			<generator class="increment"/>
+ 			<generator class="identity"/>
  		</id>
 		<property name = "title" column = "title" type = "java.lang.String"/>
 		<many-to-one name = "developer_id" class = "Entities.Developers" column = "developer_id"/>
@@ -80,7 +80,7 @@
 	</class>
 	<class name = "Entities.Developers" table= "Developers">
 		<id name="id" column="id" type="int">
- 			<generator class="increment"/>
+ 			<generator class="identity"/>
  		</id>
 		<property name = "name" column = "name" type = "java.lang.String"/>
 		<set name = "models"  lazy = "true" inverse = "true">
