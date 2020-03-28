@@ -44,4 +44,5 @@
 	<target name = "tests">
 		<ant antfile = "src/Tests/build.xml"/>
 	</target>
+	<target name="all" depends="createdb, createtables,initdb, build, tests"/>
 </project>
