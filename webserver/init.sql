@@ -1,3 +1,4 @@
+
 Insert into Clients(id, full_name, e_mail, address, phone, hashed_password)VALUES 
 (1, 'Vadim Vakhrushev', 'ayayay@mail.ru','Moscow, Novogireevo', '8-800-555-35-35',56563),
 (2,'Rodion Sulzhenko', '6969696@mail.ru', 'Moscow, South Butovo','7-932-444-57-65',65654),
@@ -36,14 +37,14 @@ insert into devices values
 (8, 'massage chair');
 
 insert into cars values
-(1,3,'hhsh99',4, 'Cotton',267654,'2017-06-05',Array[2,3],8900,'Green',78,2,2),
-(3,2,'rewe31',4,'Faux Leather',1000000,'2013-05-06',Array[1],1254,'Black',35,2,2),
-(4,3,'fdwq54',3,'Cotton',421113,'2015-07-08',Array[5],7000,'White',70,4,2),
-(5,6,'dsdw23',3,'Polyester',544321,'2016-07-08', Array[1,2,3],786,'White',65,3,2),
-(6,9,'qasw23',5,'Olefin',3212123,'2017-09-09',Array[4],5673,'Green',75,4,5),
-(8,2,'qezx62',3,'Faux Leather',678921,'2017-09-01',Array[2],1234,'Green',42,3,2),
-(9,9,'sqwe13',12,'Leather',900123,'2016-03-04',Array[3,5],653,'Blue',65,4,5),
-(10,6,'zafr78',4,'Olefin',651876,'2014-04-21',Array[1,6],0,'Green',87,4,2);
+(1,3,'hhsh99',4, 'Cotton',267654,'2017-06-05',8900,'Green',78,2,2),
+(3,2,'rewe31',4,'Faux Leather',1000000,'2013-05-06',1254,'Black',35,2,2),
+(4,3,'fdwq54',3,'Cotton',421113,'2015-07-08',7000,'White',70,4,2),
+(5,6,'dsdw23',3,'Polyester',544321,'2016-07-08',786,'White',65,3,2),
+(6,9,'qasw23',5,'Olefin',3212123,'2017-09-09',5673,'Green',75,4,5),
+(8,2,'qezx62',3,'Faux Leather',678921,'2017-09-01',1234,'Green',42,3,2),
+(9,9,'sqwe13',12,'Leather',900123,'2016-03-04',653,'Blue',65,4,5),
+(10,6,'zafr78',4,'Olefin',651876,'2014-04-21',0,'Green',87,4,2);
 insert into cars("id",model_id,registration_number,number_of_seats,upholstery_type,price,last_maintenance_date,milage,car_colour,engine_power,number_of_doors,developer_id) 
 values
 (2,7,'trew54',2,'Leather',523323,'2018-06-06',735,'Blue',43,4,4),
@@ -87,3 +88,21 @@ insert into devices_cars values
 (2,10),
 (7,10),
 (6,10);
+
+
+
+
+insert into cars_clients values
+(1,3),
+(1,2),
+(2,5),
+(2,6),
+(4,1),
+(4,3),
+(5,2),
+(6,1),
+(7,4),
+(7,5),
+(8,3),
+(9,2);
+

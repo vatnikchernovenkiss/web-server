@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS Devices CASCADE;
 DROP TABLE IF EXISTS Developers CASCADE;
 DROP TABLE IF EXISTS Models CASCADE;
 DROP TABLE IF EXISTS Devices_Cars CASCADE;
+DROP TABLE IF EXISTS cars_clients CASCADE;
 DROP TRIGGER IF EXISTS check_update on Orders;
 DROP TYPE IF EXISTS upholstery CASCADE;
 DROP TYPE IF EXISTS colour CASCADE;
@@ -41,7 +42,6 @@ CREATE TABLE Cars (
 	upholstery_type upholstery,
 	price REAL NOT NULL CHECK(price > 0),
 	last_maintenance_date DATE,
-	test_drive_clients INTEGER[],
 	milage real CHECK(milage >= 0),
 	car_colour colour,
 	engine_power real CHECK(engine_power >= 0),
@@ -50,18 +50,12 @@ CREATE TABLE Cars (
 );
 
 
-CREATE TABLE Devices_Cars(
-	device_id INTEGER REFERENCES Devices("id") ON DELETE CASCADE,
-	car_id INTEGER REFERENCES Cars("id") ON DELETE CASCADE
-);
-
 CREATE TABLE Clients(
 	"id"  SERIAL PRIMARY KEY,
 	full_name TEXT NOT NULL,
 	e_mail TEXT NOT NULL UNIQUE,
 	address TEXT,
 	phone TEXT,
-	orders INTEGER[],
 	hashed_password NUMERIC NOT NULL
 );
 
@@ -73,10 +67,14 @@ CREATE TABLE Orders(
 	current_status status NOT NULL,
 	client_id INTEGER REFERENCES Clients("id") ON DELETE CASCADE
 );
+CREATE TABLE Cars_clients (
+	car_id integer REFERENCES Cars("id") ON DELETE CASCADE,
+	client_id integer REFERENCES Clients("id") ON DELETE CASCADE
+);
 
-CREATE OR REPLACE FUNCTION adding() RETURNS TRIGGER AS 'BEGIN UPDATE  Clients SET orders= array_append(orders, NEW.id) WHERE id = NEW.client_id; RETURN NEW; END;' LANGUAGE plpgsql;
+CREATE TABLE Devices_Cars(
+	device_id INTEGER REFERENCES Devices("id") ON DELETE CASCADE,
+	car_id INTEGER REFERENCES Cars("id") ON DELETE CASCADE
+);
 
-CREATE TRIGGER check_update
-    BEFORE INSERT ON Orders
-    FOR EACH ROW
-    EXECUTE PROCEDURE adding();
+
