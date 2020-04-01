@@ -58,7 +58,7 @@ public class DaoCars extends DAO<Cars, Integer> {
 			NewCar.setNumber_of_seats(number_of_seats);
 			NewCar.setRegistration_number(registration_number);
 			NewCar.setModel_id(model);
-			NewCar.setId(id);
+			//NewCar.setId(id);
 			save(NewCar);
 	}
 }

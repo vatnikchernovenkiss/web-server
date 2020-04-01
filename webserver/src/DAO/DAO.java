@@ -1,5 +1,6 @@
 package DAO;
 
+import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -29,6 +30,8 @@ public class DAO<Type, Id extends Serializable> {
     }
     public void save(Type t) {
         getSession().save(t);
+      
+
     }
     public void update(Type t) {
         getSession().update(t);
