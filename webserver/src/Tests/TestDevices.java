@@ -45,4 +45,13 @@ public class TestDevices {
     	dev = Ddevices.getById(1);
     	Assert.assertEquals(dev.getName(),"wipers");
     }
+    @Test
+    public void TestInsert() {
+    	Ddevices.setSession(s);
+    	Dcars.setSession(s);
+    	Set<Cars> cars = new HashSet<Cars>();
+    	cars.add(Dcars.getById(3));
+    	Ddevices.addDevice(4,"hinged roof",cars);
+    	Assert.assertEquals(Ddevices.getAll().size(),9);
+    }
 }

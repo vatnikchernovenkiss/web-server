@@ -9,6 +9,9 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertNotNull;
+
 import java.text.SimpleDateFormat;  
 
 import java.util.*;
@@ -66,5 +69,17 @@ public class TestClients {
     	Dclients.update(cli);
     	cli = Dclients.getById(1);
     	Assert.assertEquals(cli.getE_mail(),"vv@mail.ru");
+    }
+    @Test
+    public void TestInsert() {
+    	Dclients.setSession(s);
+    	Dcars.setSession(s);
+    	Dorders.setSession(s);
+    	Set<Cars> cars = new HashSet();
+    	cars.add(Dcars.getById(3));
+    	Set<Orders> ord = new HashSet();
+    	Dclients.addClient(10,"Evgeny Erikhov","dml@mail.ru", "8-999-366-22-11",ord,cars,34333,"Moscow, Shosse Entuziastov");
+    	assertNotNull(Dclients.getByName("Evgeny Erikhov"));
+    	
     }
 }

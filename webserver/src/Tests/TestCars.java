@@ -72,4 +72,22 @@ public class TestCars {
     	car = DCars.getById(1);
     	Assert.assertEquals(car.getNumber_of_seats(),5);
     }
+    @Test
+    public void TestInsert() {
+    	DCars.setSession(s);
+    	Dclients.setSession(s);
+    	Dorders.setSession(s);
+    	Ddevices.setSession(s);
+    	Dmodels.setSession(s);
+    	Ddevelopers.setSession(s);
+    	Set<Clients> cli = new HashSet<Clients>();
+    	cli.add(Dclients.getById(1));
+    	Set<Orders> ord = new HashSet<Orders>(Dorders.getByStatus("supply"));
+    	Set<Devices> dev  = new HashSet<Devices>();
+    	dev.add(Ddevices.getById(4));
+    	DCars.addCar(11,Dmodels.getById(1),"ayaya999",4,"Cotton",1, new Date(119, Calendar.DECEMBER, 31),cli,300,
+    			"Green",400,3,Ddevelopers.getById(2),ord,dev);
+    	List<Cars> ans = DCars.getByRegistrationNumber("ayaya999");
+    	Assert.assertEquals(ans.size(), 1);
+    }
 }

@@ -47,8 +47,8 @@ public class TestOrders {
     @Test
     public void TestDelete() {
     	Dorders.setSession(s);
-    	Dorders.delete(Dorders.getById(11));
-    	Assert.assertNull(Dorders.getById(11));
+    	Dorders.delete(Dorders.getById(10));
+    	Assert.assertNull(Dorders.getById(10));
     }
     @Test
     public void TestUpdate() {
@@ -58,5 +58,16 @@ public class TestOrders {
     	Dorders.update(ord);
     	ord = Dorders.getById(1);
     	Assert.assertEquals(ord.getIf_test_drive_required(),true);
+    }
+    @Test
+    public void TestInsert() {
+    	Dcars.setSession(s);
+    	Dclients.setSession(s);
+    	Dorders.setSession(s);
+    	Cars car = Dcars.getById(10);
+    	Clients cli = Dclients.getById(1);
+    	Dorders.addOrder(7, new Date(119, Calendar.DECEMBER, 31), "done", car, false, cli);
+    	Assert.assertEquals(Dorders.getAll().size(), 11);
+    	
     }
 }    

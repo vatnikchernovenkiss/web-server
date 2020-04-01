@@ -45,5 +45,14 @@ public class TestModels {
     	mod = Dmodels.getById(1);
     	Assert.assertEquals(mod.getTitle(),"karoq");
     }
+    @Test
+    public void TestInsert() {
+    	Dmodels.setSession(s);
+    	Ddevelopers.setSession(s);
+    	Developers dev = Ddevelopers.getById(1);
+    	Set<Cars> car = new HashSet<Cars>();
+    	Dmodels.addModel(10, "State", car, dev);
+    	Assert.assertNotNull(Dmodels.getByTitle("State"));
+    }
 }
     

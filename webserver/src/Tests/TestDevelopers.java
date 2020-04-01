@@ -50,4 +50,10 @@ public class TestDevelopers {
     	dev = Ddevelopers.getById(1);
     	Assert.assertEquals(dev.getName(),"Shkodaa");
     }
+    @Test
+    public void TestInsert() {
+    	Ddevelopers.setSession(s);
+    	Ddevelopers.addDeveloper(11, "Motors", new HashSet<Models>(), new HashSet<Cars>());
+    	Assert.assertEquals(Ddevelopers.getAll().size(), 5);
+    }
 }
