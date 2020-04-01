@@ -12,12 +12,12 @@
 	 </class> 
 	<class name = "Entities.Cars"  table = "Cars">
 		<id name="id" column="id" type="java.lang.Integer">
- 			<generator class="identity"/>
+ 			<generator class="increment"/>
  		</id>
 		<many-to-one name = "model_id" class = "Entities.Models" column = "model_id"/>
 		<property name="registration_number" column="registration_number" type="java.lang.String"/>
 		<property name="number_of_seats" column = "number_of_seats" type = "java.lang.Integer"/>
-		<property name = "upholstery" column = "upholstery_type" type = "java.lang.String"/>
+		<property name = "upholstery" column = "upholstery_type" type = "upholstery"/>
 		<property name = "price" column = "price" type = "java.lang.Double"/>
 		<property name = "last_maintance_date" column = "last_maintenance_date" type = "java.util.Date"/>
 		<set name = "test_drive_clients" lazy = "true" table = "cars_clients">
@@ -33,7 +33,7 @@
 				<many-to-many class = "Entities.Devices" column = "device_id"/>
 		</set>
 		<property name = "milage" column = "milage" type = "java.lang.Double"/>
-		<property name = "car_colour" column = "car_colour" type = "java.lang.String"/>
+		<property name = "car_colour" column = "car_colour" type = "colour"/>
 		<property name = "engine_power" column = "engine_power" type = "java.lang.Double"/>
 		<property name = "number_of_doors" column = "number_of_doors" type = "java.lang.Integer"/>
 		<many-to-one name = "developer_id" class = "Entities.Developers" column = "developer_id"/>
