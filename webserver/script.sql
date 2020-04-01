@@ -12,11 +12,11 @@ DROP TYPE IF EXISTS upholstery CASCADE;
 DROP TYPE IF EXISTS colour CASCADE;
 DROP TYPE IF EXISTS status CASCADE;
 
-CREATE TYPE upholstery AS ENUM ('Polyester', 'Faux Leather', 'Leather', 'Olefin', 'Cotton');
+--CREATE TYPE upholstery AS ENUM ('Polyester', 'Faux_Leather', 'Leather', 'Olefin', 'Cotton');
 
-CREATE TYPE colour AS ENUM ('Green', 'Red', 'Blue', 'White', 'Black');
+--CREATE TYPE colour AS ENUM ('Green', 'Red', 'Blue', 'White', 'Black');
 
-CREATE TYPE status AS ENUM ('processing', 'test-drive', 'done', 'ready', 'supply');
+--CREATE TYPE status AS ENUM ('processing', 'test-drive', 'done', 'ready', 'supply');
 
 CREATE TABLE Devices (
 	"id" serial PRIMARY KEY,
@@ -39,11 +39,11 @@ CREATE TABLE Cars (
 	model_id INTEGER REFERENCES Models("id") ON DELETE CASCADE,
 	registration_number TEXT UNIQUE NOT NULL,
 	number_of_seats INTEGER NOT NULL CHECK(number_of_seats > 0),
-	upholstery_type upholstery,
+	upholstery_type TEXT NOT NULL,
 	price REAL NOT NULL CHECK(price > 0),
 	last_maintenance_date DATE,
 	milage real CHECK(milage >= 0),
-	car_colour colour,
+	car_colour TEXT NOT NULL,
 	engine_power real CHECK(engine_power >= 0),
 	number_of_doors INTEGER NOT NULL CHECK(number_of_doors > 0),
 	developer_id INTEGER REFERENCES Developers("id") ON DELETE CASCADE
@@ -64,7 +64,7 @@ CREATE TABLE Orders(
 	date_an_time date NOT NULL,
 	car_id INTEGER REFERENCES Cars("id") ON DELETE CASCADE,
 	if_test_drive_required  BOOL NOT NULL,
-	current_status status NOT NULL,
+	current_status TEXT NOT NULL,
 	client_id INTEGER REFERENCES Clients("id") ON DELETE CASCADE
 );
 CREATE TABLE Cars_clients (
