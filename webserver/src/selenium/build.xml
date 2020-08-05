@@ -14,10 +14,10 @@
         </classpath>
     </taskdef>
     <target name="runtests">
-        <mkdir dir="results"/>
-        <testng classpathref="classpath.test" outputdir="results">
+        <mkdir dir="resultsnew"/>
+        <testng classpathref="classpath.test" outputdir="resultsnew">
             <xmlfileset dir="."
-                        includes="src/Tests/testng.xml"/>
+                        includes="src/selenium/testng.xml"/>
         </testng>
     </target>
 </project>

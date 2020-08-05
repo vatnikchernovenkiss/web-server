@@ -8,6 +8,14 @@ import java.util.Set;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
+@Repository
+@Transactional
 public class DaoOrders  extends DAO<Orders, Integer> {
 	public List<Orders> getByCarNumber(String number) {
 		 TypedQuery<Orders> query = getSession()
@@ -26,6 +34,12 @@ public class DaoOrders  extends DAO<Orders, Integer> {
                 .setParameter("low", low)
                 .setParameter("high",high);
 		return query.getResultList();
+	}
+
+	public List<Orders> getAll() {
+		 TypedQuery<Orders> query = getSession().
+				 createQuery("select d from Orders d");
+		 return query.getResultList();
 	}
 	public void addOrder(int id, Date date, String status, Cars car, boolean test_drive, Clients client) {
 		Orders order = new Orders();

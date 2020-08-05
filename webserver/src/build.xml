@@ -12,11 +12,11 @@
     <target name = "build">
         <mkdir dir ="out/car_showroom"/>
         <copy file="src/hibernate.cfg.xml" todir="out/car_showroom"/>
-
+	    <copy file="src/link.hbm.xml" todir="out/car_showroom"/>
         <javac includeantruntime = "false"
                destdir = "out/car_showroom"
-               source = "14"
-               target = "14">
+               source = "8"
+               target = "8">
             <src path = "src"/>
             <classpath refid = "classpath.master"/>
         </javac>

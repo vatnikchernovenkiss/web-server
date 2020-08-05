@@ -2,84 +2,120 @@ package Tests;
 
 import DAO.*;
 import Entities.*;
-import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+
 import org.testng.annotations.Test;
-import java.text.SimpleDateFormat;  
 
 import java.util.*;
 public class TestCars {
-	private Session s;
-    private DaoCars DCars= new DaoCars();
-    private DaoClients Dclients = new DaoClients();
-    private DaoDevelopers Ddevelopers =  new DaoDevelopers();
-    private DaoDevices Ddevices= new DaoDevices();
-    private DaoOrders Dorders = new DaoOrders();
-    private DaoModels Dmodels = new DaoModels();
-    @BeforeClass
-    public void CreateSession() {
-    	s = new Configuration().configure().buildSessionFactory().openSession();
+	private SessionFactory s;
+    private DaoCars DCars;
+    private DaoClients Dclients;
+    private DaoDevices Ddevices;
+    private DaoOrders Dorders;
+    private DaoModels Dmodels;
+    private DaoDevelopers Ddevelopers;
+
+    private Transaction trans;
+
+    public void setUp()  {
+        s = new Configuration().configure().buildSessionFactory();
+        trans = s.getCurrentSession().beginTransaction();
+        DCars= new DaoCars();
+        DCars.setSession(s);
+ 
+    }
+
+    public void shutDown() {
+    	trans.commit();
+        s.close();
     }
     @Test
     public void TestDevice() {
-    	DCars.setSession(s);
+    	setUp();
+
     	List<Cars> ans = DCars.getByDeviceName("video");
     	Assert.assertEquals(ans.size(), 2);
+    	 shutDown();
     }
     @Test
     public void TestTestDrive() {
-    	DCars.setSession(s);
+    	setUp();
     	List<Cars> ans = DCars.getByTest_drive_client_name("Rodion Sulzhenko");
+    	shutDown();
     	Assert.assertEquals(ans.size(), 3);
     }
     @Test
     public void TestModel() {
-    	DCars.setSession(s);
+    	setUp();
     	List<Cars> ans = DCars.getByModelTitle("Fusion");
+    	shutDown();
+
     	Assert.assertEquals(ans.size(), 2);
 
     }
     @Test
     public void TestPrice() {
-    	DCars.setSession(s);
+    	setUp();
     	List<Cars> ans = DCars.getByPrice(200000,500000);
+    	shutDown();
+
     	Assert.assertEquals(ans.size(), 2);
 
     }
     @Test
     public void TestNumber() {
-    	DCars.setSession(s);
+    	setUp();
     	List<Cars> ans = DCars.getByRegistrationNumber("sqwe13");
+    	shutDown();
+
     	Assert.assertEquals(ans.size(), 1);
 
     }
    @Test
     public void TestDelete() {
-    	DCars.setSession(s);
+	   setUp();
     	DCars.delete(DCars.getById(10));
     	Assert.assertNull(DCars.getById(10));
+    	shutDown();
+
+    	
     }
     @Test
     public void TestUpdate() {
-    	DCars.setSession(s);
+    	setUp();
     	Cars car = DCars.getById(1);
     	car.setNumber_of_seats(5);
     	DCars.update(car);
     	car = DCars.getById(1);
     	Assert.assertEquals(car.getNumber_of_seats(),5);
+    	shutDown();
+    }
+    @Test
+    public void TestAll() {
+    	setUp();
+    	List<Cars> l = DCars.getAll();
+    	shutDown();
+
+    	Assert.assertEquals(l.isEmpty(), false);
     }
     @Test
     public void TestInsert() {
-    	DCars.setSession(s);
-    	Dclients.setSession(s);
-    	Dorders.setSession(s);
-    	Ddevices.setSession(s);
-    	Dmodels.setSession(s);
-    	Ddevelopers.setSession(s);
+    	setUp();
+        Dclients = new DaoClients();
+        Ddevices= new DaoDevices();
+        Dorders = new DaoOrders();
+        Dmodels = new DaoModels();
+        Ddevelopers = new DaoDevelopers();
+        Dclients.setSession(s);
+        Ddevices.setSession(s);
+        Dorders.setSession(s);
+        Dmodels.setSession(s);
+        Ddevelopers.setSession(s);
     	Set<Clients> cli = new HashSet<Clients>();
     	cli.add(Dclients.getById(1));
     	Set<Orders> ord = new HashSet<Orders>(Dorders.getByStatus("supply"));
@@ -88,6 +124,8 @@ public class TestCars {
     	DCars.addCar(11,Dmodels.getById(1),"ayaya999",4,"Cotton",1, new Date(119, Calendar.DECEMBER, 31),cli,300,
     			"Green",400,3,Ddevelopers.getById(2),ord,dev);
     	List<Cars> ans = DCars.getByRegistrationNumber("ayaya999");
+    	shutDown();
+
     	Assert.assertEquals(ans.size(), 1);
     }
 }

@@ -4,6 +4,7 @@ import DAO.*;
 import Entities.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -13,47 +14,62 @@ import java.text.SimpleDateFormat;
 
 import java.util.*;
 public class TestDevelopers {
-	private Session s;
-    private DaoCars Dcars= new DaoCars();
-    private DaoClients Dclients = new DaoClients();
-    private DaoDevelopers Ddevelopers =  new DaoDevelopers();
-    private DaoDevices Ddevices= new DaoDevices();
-    private DaoOrders Dorders = new DaoOrders();
-    private DaoModels Dmodels = new DaoModels();
-    @BeforeClass
-    public void CreateSession() {
-    	s = new Configuration().configure().buildSessionFactory().openSession();
+	private SessionFactory s;
+
+    private DaoDevelopers Ddevelopers;
+    private Transaction trans;
+
+    public void setUp()  {
+        s = new Configuration().configure().buildSessionFactory();
+        trans = s.getCurrentSession().beginTransaction();
+        Ddevelopers =  new DaoDevelopers();
+    	Ddevelopers.setSession(s);
+ 
+    }
+
+    public void shutDown() {
+        trans.commit();
+        s.close();
     }
     @Test
     public void TestModels() {
-    	Ddevelopers.setSession(s);
+    	setUp();
     	List<Models> ans = Ddevelopers.getModels("Nissan");
     	Assert.assertEquals(ans.size(), 2);
+    	shutDown();
+
     }
     public void TestCars() {
-    	Ddevelopers.setSession(s);
+    	setUp();
     	List<Cars> ans = Ddevelopers.getCars("Nissan");
     	Assert.assertEquals(ans.size(), 0);
+    	shutDown();
     }
     @Test
-    public void TestDelete() {
-    	Ddevelopers.setSession(s);
+    public void TestDelete() {    	
+    	setUp();
     	Ddevelopers.delete(Ddevelopers.getById(5));
     	Assert.assertNull(Ddevelopers.getById(5));
+    	shutDown();
+
     }
     @Test
     public void TestUpdate() {
-    	Ddevelopers.setSession(s);
+    	setUp();
     	Developers dev = Ddevelopers.getById(1);
     	dev.setName("Shkodaa");
     	Ddevelopers.update(dev);
     	dev = Ddevelopers.getById(1);
     	Assert.assertEquals(dev.getName(),"Shkodaa");
+    	shutDown();
+
     }
     @Test
     public void TestInsert() {
-    	Ddevelopers.setSession(s);
+    	setUp();
     	Ddevelopers.addDeveloper(11, "Motors", new HashSet<Models>(), new HashSet<Cars>());
     	Assert.assertEquals(Ddevelopers.getAll().size(), 5);
+    	shutDown();
+
     }
 }

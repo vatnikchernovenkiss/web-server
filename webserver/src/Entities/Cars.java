@@ -42,12 +42,12 @@ public class Cars {
 	public void setModel_id(Models model_id) {this.model_id = model_id;}
 	public void setRegistration_number(String registration_number) {this.registration_number = registration_number;}
 	public void setNumber_of_seats(int number_of_seats) {this.number_of_seats = number_of_seats;}
-	public void setUpholstery(String upholsteryy) {this.upholstery_type = upholstery.Leather;}
+	public void setUpholstery(String upholsteryy) {this.upholstery_type = upholstery.valueOf(upholsteryy);}
 	public void setPrice(double price) {this.price = price;}
 	public void setLast_maintance_date(Date last_maintenance_date) {this.last_maintance_date = last_maintenance_date;}
 	public void setTest_drive_clients(Set<Clients> test_drive_clients) {this.test_drive_clients = test_drive_clients;}
 	public void setMilage(double milage) {this.milage = milage;}
-	public void setCar_colour(String car_colour) {this.car_colour = colour.Green;}
+	public void setCar_colour(String car_colour) {this.car_colour = colour.valueOf(car_colour);}
 	public void setEngine_power(double engine_power) {this.engine_power = engine_power;}
 	public void setNumber_of_doors(int number_of_doors) {this.number_of_doors = number_of_doors;}
 	public void setDeveloper_id(Developers developer_id) {this.developer_id = developer_id;}

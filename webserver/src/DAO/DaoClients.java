@@ -1,5 +1,11 @@
 package DAO;
 import DAO.DAO;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import Entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -8,6 +14,8 @@ import java.util.Set;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
+@Repository
+@Transactional
 public class DaoClients  extends DAO<Clients, Integer>  {
 	public List<Clients> getByName(String name) {
 		 TypedQuery<Clients> query = getSession()
@@ -33,6 +41,24 @@ public class DaoClients  extends DAO<Clients, Integer>  {
 	                .setParameter("e_mail", e_mail);
 	     return query.getResultList();
 	} 
+
+	public List<Clients> getAll() {
+		 TypedQuery<Clients> query = getSession().
+				 createQuery("select d from Clients d");
+		 return query.getResultList();
+	}
+	public List<Clients> getByCarId(int id) {
+		TypedQuery<Clients> query = getSession().
+				 createQuery("select distinct c from Clients c inner join c.test_drive_cars o where o.id = :id").
+				 setParameter("id",id);
+		 return query.getResultList();
+	}
+	public List<Clients> getByIds(List<Integer> ids) {
+		TypedQuery<Clients> query = getSession().
+				 createQuery("select c from Clients c where c.id in (:ids)").
+				 setParameter("ids",ids);
+		 return query.getResultList();
+	}
 	public void addClient(int id, String phone, String e_mail, String full_name, Set<Orders> orders, Set<Cars> test_drive_cars,
 			int hashed_password, String address) {
 		Clients client = new Clients();

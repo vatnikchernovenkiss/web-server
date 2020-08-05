@@ -4,6 +4,7 @@ import DAO.*;
 import Entities.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -13,46 +14,63 @@ import java.text.SimpleDateFormat;
 
 import java.util.*;
 public class TestModels {
-	private Session s;
-    private DaoCars Dcars= new DaoCars();
-    private DaoClients Dclients = new DaoClients();
-    private DaoDevelopers Ddevelopers =  new DaoDevelopers();
-    private DaoDevices Ddevices= new DaoDevices();
-    private DaoOrders Dorders = new DaoOrders();
-    private DaoModels Dmodels = new DaoModels();
-    @BeforeClass
-    public void CreateSession() {
-    	s = new Configuration().configure().buildSessionFactory().openSession();
+	private SessionFactory s;
+
+    private DaoDevelopers Ddevelopers;
+    private DaoModels Dmodels;
+    private Transaction trans;
+
+
+    public void setUp()  {
+        s = new Configuration().configure().buildSessionFactory();
+        trans = s.getCurrentSession().beginTransaction();
+        Dmodels = new DaoModels();
+    	Dmodels.setSession(s);
     }
+
+    public void shutDown() {
+    	trans.commit();
+        s.close();
+    }
+    
     @Test
     public void TestTitle() {
-    	Dmodels.setSession(s);
+    	setUp();
     	List<Models> ans = Dmodels.getByTitle("Focus");
     	Assert.assertEquals(ans.size(), 1);
+    	shutDown();
+
     }
     @Test
     public void TestDelete() {
-    	Dmodels.setSession(s);
-    	Dmodels.delete(Dmodels.getById(10));
-    	Assert.assertNull(Dmodels.getById(10));
+    	setUp();
+    	Dmodels.delete(Dmodels.getById(4));
+    	Assert.assertNull(Dmodels.getById(4));
+    	shutDown();
+
     }
     @Test
     public void TestUpdate() {
-    	Dmodels.setSession(s);
+    	setUp();
     	Models mod = Dmodels.getById(1);
     	mod.setTitle("karoq");
     	Dmodels.update(mod);
     	mod = Dmodels.getById(1);
     	Assert.assertEquals(mod.getTitle(),"karoq");
+    	shutDown();
+
     }
     @Test
     public void TestInsert() {
-    	Dmodels.setSession(s);
-    	Ddevelopers.setSession(s);
+    	setUp();
+        Ddevelopers =  new DaoDevelopers();
+        Ddevelopers.setSession(s);
     	Developers dev = Ddevelopers.getById(1);
     	Set<Cars> car = new HashSet<Cars>();
     	Dmodels.addModel(10, "State", car, dev);
     	Assert.assertNotNull(Dmodels.getByTitle("State"));
+    	shutDown();
+
     }
 }
     

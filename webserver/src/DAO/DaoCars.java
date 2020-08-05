@@ -3,11 +3,20 @@ import DAO.DAO;
 import Entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
+
 import java.util.Set;
 
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
+@Repository
+@Transactional
 public class DaoCars extends DAO<Cars, Integer> {
 	public List<Cars> getByDeviceName(String name) {
 		 TypedQuery<Cars> query = getSession()
@@ -40,6 +49,13 @@ public class DaoCars extends DAO<Cars, Integer> {
 	                .setParameter("low", low);
 	     return query.getResultList();
 	}
+
+	public List<Cars> getAll() {
+		 TypedQuery<Cars> query = getSession().
+				 createQuery("select d from Cars d");
+		 return query.getResultList();
+	}
+	
 	public void addCar(int id, Models model, String registration_number,int number_of_seats, String upholstery, double price,
 				Date last_maintenance_date, Set<Clients> test_drive_clients,double milage, String car_colour, double engine_power,
 				int number_of_doors, Developers developer, Set<Orders> orders, Set<Devices> devices) {
