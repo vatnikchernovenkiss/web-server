@@ -3,11 +3,10 @@
     <property name="driver" value="org.postgresql.Driver"/>
     <property name="url1" value="jdbc:postgresql://localhost:5432/"/>
 
-    <property name="url" value="jdbc:postgresql://localhost/car_showroom"/>
+    <property name="url" value="jdbc:postgresql://localhost/car_showroom?stringtype=unspecified"/>
     <property name="user" value="postgres"/>
     <property name="pass" value="lsizih123"/>
     <property name="classpath" value="postgresql-42.2.10.jar"/>
-
     <target name="createdb">
         <sql driver="${driver}"
             classpath="${classpath}"
@@ -44,5 +43,37 @@
 	<target name = "tests">
 		<ant antfile = "src/Tests/build.xml"/>
 	</target>
-	<target name="all" depends="createdb, createtables,initdb, build, tests"/>
+	<target name =  "build-war">
+    	<ant antfile = "src/web/build.xml"/>
+    </target>
+	<target name = "start-server">
+	    <exec executable = "../glassfish5/glassfish/bin/asadmin">
+	      <arg value="start-domain"/>
+	    </exec>
+	  </target>
+
+	  <target name = "stop-server">
+	    <exec executable = "../glassfish5/glassfish/bin/asadmin">
+	      <arg value="stop-domain"/>
+	    </exec>
+	  </target>
+
+	  <target name = "deploy">
+	    <exec executable = "../glassfish5/glassfish/bin/asadmin">
+	      <arg value = "deploy"/>
+	      <arg value = "--force=true"/>
+	      <arg value = "out/app/car_showroom/car_showroom.war"/>
+	    </exec>
+	  </target>
+
+	  <target name = "undeploy">
+	    <exec executable = "../glassfish5/glassfish/bin/asadmin">
+	      <arg value = "undeploy"/>
+	      <arg value = "out/app/car_showroom/car_showroom.war"/>
+	    </exec>
+	  </target>
+	<target name = "testngnew">
+			<ant antfile = "src/selenium/build.xml"/>
+		</target>
+	<target name="all" depends="createdb, createtables,initdb, build, build-war,start-server,deploy"/>
 </project>

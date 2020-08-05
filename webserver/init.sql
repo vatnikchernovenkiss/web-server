@@ -54,7 +54,7 @@ insert into orders(date_an_time, car_id, if_test_drive_required, current_status,
 ('2019-03-06', 1, false, 'supply', 2),
 ('2019-04-03',7,true,'ready',4),
 ('2019-05-06',3,true,'supply',1),
---('2019-07-04',7,false,'processing',4),
+
 ('2019-01-05',2,true,'done',3),
 ('2019-03-09',4,true,'test_drive',6),
 ('2019-11-12',5,false,'supply',5),
