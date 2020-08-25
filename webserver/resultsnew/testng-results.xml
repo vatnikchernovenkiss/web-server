@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="5" passed="5">
+  <reporter-output>
+  </reporter-output>
+  <suite name="SystemSuite" duration-ms="49066" started-at="2020-08-25T19:39:44Z" finished-at="2020-08-25T19:40:33Z">
+    <groups>
+    </groups>
+    <test name="SystemTest" duration-ms="49066" started-at="2020-08-25T19:39:44Z" finished-at="2020-08-25T19:40:33Z">
+      <class name="selenium.test">
+        <test-method status="PASS" signature="carTest()[pri:0, instance:selenium.test@71be98f5]" name="carTest" duration-ms="17444" started-at="2020-08-25T19:39:44Z" finished-at="2020-08-25T19:40:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- carTest -->
+        <test-method status="PASS" signature="clientTest()[pri:0, instance:selenium.test@71be98f5]" name="clientTest" duration-ms="9106" started-at="2020-08-25T19:40:01Z" finished-at="2020-08-25T19:40:10Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clientTest -->
+        <test-method status="PASS" signature="errorTest1()[pri:0, instance:selenium.test@71be98f5]" name="errorTest1" duration-ms="6038" started-at="2020-08-25T19:40:10Z" finished-at="2020-08-25T19:40:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- errorTest1 -->
+        <test-method status="PASS" signature="errorTest2()[pri:0, instance:selenium.test@71be98f5]" name="errorTest2" duration-ms="8715" started-at="2020-08-25T19:40:16Z" finished-at="2020-08-25T19:40:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- errorTest2 -->
+        <test-method status="PASS" signature="orderTest()[pri:0, instance:selenium.test@71be98f5]" name="orderTest" duration-ms="7740" started-at="2020-08-25T19:40:25Z" finished-at="2020-08-25T19:40:33Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- orderTest -->
+      </class> <!-- selenium.test -->
+    </test> <!-- SystemTest -->
+  </suite> <!-- SystemSuite -->
+</testng-results>
