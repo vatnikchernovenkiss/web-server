@@ -1,0 +1,96 @@
+
+<hibernate-mapping>
+	 <class name="Entities.Devices" table="Devices">
+ 		<id name="id" column="id" type="java.lang.Integer">
+ 			<generator class="identity"/>
+ 		</id>
+		 <property name="name" column="name" type="java.lang.String"/>
+	    <set name="cars" lazy="true" table="devices_cars"> 
+			<key column="device_id"/>
+ 				<many-to-many class="Entities.Cars" column="car_id"/>
+		 </set> 
+	 </class> 
+	<class name = "Entities.Cars"  table = "Cars">
+		<id name="id" column="id" type="java.lang.Integer">
+ 			<generator class="identity"/>
+ 		</id>
+		<many-to-one name = "model_id" lazy = "false" class = "Entities.Models" column = "model_id"/>
+		<property name="registration_number" column="registration_number" type="java.lang.String"/>
+		<property name="number_of_seats" column = "number_of_seats" type = "java.lang.Integer"/>
+		<property name = "upholstery" column = "upholstery_type" type = "java.lang.String"/>
+		<property name = "price" column = "price" type = "java.lang.Double"/>
+		<property name = "last_maintance_date" column = "last_maintenance_date" type = "java.util.Date"/>
+		<set name = "test_drive_clients" lazy = "false" table = "cars_clients">
+			<key column = "car_id"/>
+				<many-to-many class = "Entities.Clients" column = "client_id"/>
+		</set>
+		<set name = "orders" inverse = "true" cascade="all-delete-orphan" lazy = "true">
+			<key column = "car_id"/>
+			<one-to-many class = "Entities.Orders"/>
+		</set>
+		<set name = "devices" lazy = "true" table = "devices_cars">
+			<key column = "car_id"/>
+				<many-to-many class = "Entities.Devices" column = "device_id"/>
+		</set>
+		<property name = "milage" column = "milage" type = "java.lang.Double"/>
+		<property name = "car_colour" column = "car_colour" type = "java.lang.String"/>
+		<property name = "engine_power" column = "engine_power" type = "java.lang.Double"/>
+		<property name = "number_of_doors" column = "number_of_doors" type = "java.lang.Integer"/>
+		<many-to-one name = "developer_id" lazy = "false"  class = "Entities.Developers" column = "developer_id"/>
+	
+	</class> 
+	<class name = "Entities.Clients" table = "Clients">
+		<id name="id" column="id" type="java.lang.Integer">
+ 			<generator class="identity"/>
+ 		</id>
+		<property name = "full_name" column = "full_name" type = "java.lang.String"/>
+		<property name = "e_mail" column = "e_mail" type = "java.lang.String"/>
+		<property name = "address" column = "address" type = "java.lang.String"/>
+		<property name = "phone" column = "phone" type = "java.lang.String"/>
+		<property name = "hashed_password" column = "hashed_password" type = "int"/>
+		<set name = "test_drive_cars" lazy = "false"  table = "cars_clients">
+			<key column = "client_id"/>
+				<many-to-many class = "Entities.Cars" column = "car_id"/>
+		</set>
+		<set name = "orders" inverse = "true"  cascade="all-delete-orphan" lazy = "true">
+			<key column = "client_id"/>
+			<one-to-many class = "Entities.Orders"/>
+		</set>
+	</class>
+	<class name = "Entities.Orders" table = "Orders">
+		<id name="id" column="id" type="java.lang.Integer">
+ 			<generator class="identity"/>
+ 		</id>
+		<property name = "date_and_time" column = "date_an_time" type = "java.util.Date"/>
+		<property name = "current_status" column = "current_status" type = "java.lang.String"/>
+		<many-to-one name = "car_id" lazy = "false" class = "Entities.Cars" column = "car_id"/>
+		<property name = "if_test_drive_required" column = "if_test_drive_required" type = "java.lang.Boolean"/>
+		<many-to-one name = "client_id" lazy = "false" class = "Entities.Clients" column = "client_id"/>
+	</class>
+	<class name = "Entities.Models" table = "Models">
+		<id name="id" column="id" type="java.lang.Integer">
+ 			<generator class="increment"/>
+ 		</id>
+		<property name = "title" column = "title" type = "java.lang.String"/>
+		<many-to-one name = "developer_id" class = "Entities.Developers" column = "developer_id"/>
+		<set name = "cars" cascade="all-delete-orphan" lazy = "true" inverse = "true">
+			<key column = "model_id"/>
+			<one-to-many class="Entities.Cars"/>
+		</set>
+	</class>
+	<class name = "Entities.Developers" table= "Developers">
+		<id name="id" column="id" type="int">
+ 			<generator class="increment"/>
+ 		</id>
+		<property name = "name" column = "name" type = "java.lang.String"/>
+		<set name = "models" cascade="all-delete-orphan" lazy = "true" inverse = "true">
+			<key column = "developer_id"/>
+			<one-to-many class = "Entities.Models"/>
+		</set>
+		<set name = "cars" cascade="all-delete-orphan" lazy = "true" inverse = "true">
+			<key column = "developer_id"/>
+			<one-to-many class = "Entities.Cars"/>
+		</set>
+	</class> 
+</hibernate-mapping> 
+
